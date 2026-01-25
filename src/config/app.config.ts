@@ -1,4 +1,4 @@
-import { type Currency } from '../types/currency'
+import type { Currency } from '@typings/currency'
 
 export const API = {
   BASE_URL: 'https://dummyjson.com',
@@ -17,6 +17,12 @@ export const ROUTE = {
 export const CURRENCY = {
   DEFAULT: 'USD' as Currency,
   SUPPORTED: ['USD', 'GBP', 'EUR'] as const,
+}
+
+export const QUERY = {
+  STALE_TIME: 5 * 60 * 1000,
+  GC_TIME: 10 * 60 * 1000,
+  RETRY: 3,
 }
 
 export const SEARCH_DEBOUNCE_MS = 300

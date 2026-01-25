@@ -31,7 +31,7 @@
       "@pages/*": ["src/pages/*"],
       "@hooks/*": ["src/hooks/*"],
       "@lib/*": ["src/lib/*"],
-      "@types/*": ["src/types/*"],
+      "@typings/*": ["src/types/*"],
       "@config/*": ["src/config/*"],
       "@contexts/*": ["src/contexts/*"],
       "@store/*": ["src/store/*"],
