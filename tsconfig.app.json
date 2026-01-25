@@ -32,7 +32,6 @@
       "@hooks/*": ["src/hooks/*"],
       "@lib/*": ["src/lib/*"],
       "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
       "@config/*": ["src/config/*"],
       "@contexts/*": ["src/contexts/*"],
       "@store/*": ["src/store/*"],
