@@ -1,6 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from 'react-router-dom'
-import { queryClient } from '@lib/react-query/queryClient'
+import { queryClient } from '@config/queryClient'
 import { router } from '@app/routes'
 import { CurrencyProvider } from '@contexts/CurrencyContext'
 

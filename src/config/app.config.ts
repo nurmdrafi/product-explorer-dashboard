@@ -4,6 +4,11 @@ export const API = {
   BASE_URL: 'https://dummyjson.com',
   TIMEOUT: 10000,
   DEFAULT_LIMIT: 20,
+  ENDPOINTS: {
+    PRODUCTS: '/products',
+    CATEGORIES: '/products/categories',
+    SEARCH: '/products/search',
+  },
 }
 
 export const ROUTE = {
@@ -27,3 +32,4 @@ export const QUERY = {
 
 export const SEARCH_DEBOUNCE_MS = 300
 export const INFINITE_SCROLL_THRESHOLD = 200
+export const INTERSECTION_THRESHOLD = 0.1
