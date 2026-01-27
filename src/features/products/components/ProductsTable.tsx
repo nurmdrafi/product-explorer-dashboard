@@ -1,6 +1,6 @@
 import { Table } from '@components/common/table/Table'
-import { productsColumns } from './ProductsColumns'
 import type { Product } from '@typings/product'
+import { productsColumns } from './ProductsColumns'
 
 interface ProductsTableProps {
   products: Product[]
