@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSearch } from '@features/search'
-import { useProductFilters } from '@store/index'
+import { useProductFilters } from '@store/features/products'
+
 import { ProductList } from '@features/products/components/ProductList'
 
 export function SearchPage() {

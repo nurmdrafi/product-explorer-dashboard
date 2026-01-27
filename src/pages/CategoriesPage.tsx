@@ -1,6 +1,7 @@
 import { CategoriesList } from '@features/categories'
 import { useNavigate } from 'react-router-dom'
-import { useProductFilters } from '@store/index'
+import { useProductFilters } from '@store/features/products'
+
 import { ROUTE } from '@config/app.config'
 
 export function CategoriesPage() {

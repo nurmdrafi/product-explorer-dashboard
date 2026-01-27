@@ -1,6 +1,7 @@
 import { Table } from '@components/common/table/Table'
 import { Columns } from '@components/common/table/Columns'
-import { useProductFilters } from '@store/index'
+import { useProductFilters } from '@store/features/products'
+
 import { useGetProductsCategoryListData } from '@features/products/hooks/useGetProductsCategoryListData'
 import { useSearchParams } from 'react-router-dom'
 import { useInfiniteScroll } from '@hooks/useInfiniteScroll'

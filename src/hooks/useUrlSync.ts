@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useProductFilters } from '@store/index'
+import { useProductFilters } from '@store/features/products'
+
 
 // Sync Zustand state with URL parameters on mount and when URL changes
 export function useUrlSync() {

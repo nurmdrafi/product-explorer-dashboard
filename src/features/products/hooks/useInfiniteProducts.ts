@@ -1,7 +1,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { getProducts } from '../services/products.api'
 import { API } from '@config/app.config'
-import { useProductFilters } from '@store/index'
+import { useProductFilters } from '@store/features/products'
+
 
 export function useInfiniteProducts() {
   const filters = useProductFilters()
