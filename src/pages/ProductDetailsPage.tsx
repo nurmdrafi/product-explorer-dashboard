@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
-import { useProductDetails } from '@features/products'
-import { ProductDetails } from '@features/products'
+import { useProductDetails } from '@features/product-details'
+import { ProductDetails } from '@features/product-details'
 
 export function ProductDetailsPage() {
   const { id } = useParams<{ id: string }>()
