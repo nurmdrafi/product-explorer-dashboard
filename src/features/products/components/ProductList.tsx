@@ -133,9 +133,10 @@ export function ProductList({
     <div className='space-y-4'>
       {showFilters && (
         <div className='flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between'>
-          <p className='text-gray-600'>
-            Found {total} {total === 1 ? 'product' : 'products'}
-          </p>
+          <div>
+            <h2 className='text-xl font-semibold text-gray-900'>All Products</h2>
+            <p className='text-sm text-gray-500'>{total} items</p>
+          </div>
 
           <div className='flex justify-start items-center flex-wrap gap-4'>
             {/* Category Filter */}
@@ -151,7 +152,7 @@ export function ProductList({
                   <option value='all'>All Categories</option>
                   {categories?.map(category => (
                     <option key={category} value={category}>
-                      {category}
+                      {category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ')}
                     </option>
                   ))}
                 </select>
@@ -192,7 +193,7 @@ export function ProductList({
           {(currentSortBy || currentOrder || currentCategory) && (
             <button
               onClick={clearFilters}
-              className='px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200'
+              className='px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700'
             >
               Clear Filters
             </button>

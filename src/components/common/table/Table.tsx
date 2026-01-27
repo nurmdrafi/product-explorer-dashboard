@@ -14,7 +14,7 @@ export function Table<T>({ columns, data, keyExtractor }: TableProps<T>) {
               <th
                 key={column.key}
                 scope='col'
-                className='px-6 py-3 text-left text-xs font-medium text-gray-500
+                className='px-4 py-2 text-left text-xs font-medium text-gray-500
                   uppercase tracking-wider'
               >
                 {column.header}
@@ -26,7 +26,7 @@ export function Table<T>({ columns, data, keyExtractor }: TableProps<T>) {
           {data.map(row => (
             <tr key={keyExtractor(row)}>
               {columns.map(column => (
-                <td key={column.key} className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
+                <td key={column.key} className='px-4 py-3 whitespace-nowrap text-sm text-gray-900'>
                   {column.render
                     ? column.render((row as Record<string, unknown>)[column.key], row)
                     : String((row as Record<string, unknown>)[column.key] ?? '')}
