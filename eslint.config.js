@@ -83,7 +83,7 @@ export default [
       'object-curly-spacing': ['error', 'always'],
       'arrow-parens': ['error', 'as-needed'],
       'jsx-quotes': ['error', 'prefer-single'],
-      'max-len': ['warn', { code: 100 }],
+      'max-len': ['warn', { code: 140 }],
 
       // General
       'no-console': 'warn',
