@@ -14,13 +14,12 @@ export function useInfiniteProducts() {
     isLoading,
     error,
   } = useInfiniteQuery({
-    queryKey: ['products', 'infinite', filters.category, filters.sortBy, filters.order, filters.searchQuery],
+    queryKey: ['products', 'infinite', filters.category, filters.sortBy, filters.order],
     queryFn: ({ pageParam = 0 }) =>
       getProducts({
         limit: API.DEFAULT_LIMIT,
         skip: pageParam,
         category: filters.category ?? undefined,
-        q: filters.searchQuery || undefined,
         sortBy: filters.sortBy ?? undefined,
         order: filters.order ?? undefined,
       }),

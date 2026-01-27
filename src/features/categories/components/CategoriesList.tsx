@@ -1,8 +1,12 @@
 import { useCategories } from '@features/categories'
-import { ROUTE } from '@config/app.config'
 
-export function CategoriesList() {
+interface CategoriesListProps {
+  onCategoryClick?: (category: string) => void
+}
+
+export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
   const { categories, isLoading, error } = useCategories()
+
   if (isLoading) {
     return (
       <div className='flex justify-center p-8'>
@@ -23,16 +27,16 @@ export function CategoriesList() {
   return (
     <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
       {categories?.map(category => (
-        <a
+        <button
           key={category?.slug}
-          href={`${ROUTE.PRODUCTS}?category=${encodeURIComponent(category?.slug)}`}
+          onClick={() => onCategoryClick?.(String(category?.slug))}
           className='rounded-lg border border-gray-200 bg-white p-4 text-center transition-colors
-           hover:bg-gray-50 hover:border-gray-300'
+           hover:bg-gray-50 hover:border-gray-300 cursor-pointer'
         >
           <span className='block text-sm font-medium capitalize text-gray-900'>
             {category?.name}
           </span>
-        </a>
+        </button>
       ))}
     </div>
   )
