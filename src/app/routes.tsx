@@ -5,6 +5,7 @@ import { ProductsPage } from '@pages/ProductsPage'
 import { ProductDetailsPage } from '@pages/ProductDetailsPage'
 import { CategoriesPage } from '@pages/CategoriesPage'
 import { SearchPage } from '@pages/SearchPage'
+import { SettingsPage } from '@pages/SettingsPage'
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.SETTINGS,
-        element: <div>Settings Page</div>,
+        element: <SettingsPage />,
       },
     ],
   },

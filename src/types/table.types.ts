@@ -1,6 +1,6 @@
 export type Column<T> = {
   key: string
-  header: string
+  header: string | React.ReactNode
   render?: (value: unknown, row: T) => React.ReactNode
 }
 

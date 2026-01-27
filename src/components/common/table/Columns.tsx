@@ -1,6 +1,19 @@
 import type { Column } from '@typings/table.types'
 import type { Product } from '@typings/product.types'
 import { Link } from 'react-router-dom'
+import { useCurrency } from '@contexts/CurrencyContext'
+import { formatPrice } from '@utils/currency'
+
+function PriceCell({ price }: { price: number }) {
+  const { currency } = useCurrency()
+  return <span>{formatPrice(price, currency)}</span>
+}
+
+function PriceHeader() {
+  const { currency } = useCurrency()
+  const symbol = currency === 'USD' ? '$' : currency === 'GBP' ? '£' : '€'
+  return <span>Price ({symbol})</span>
+}
 
 export const Columns: Column<Product>[] = [
   { key: 'id', header: 'ID' },
@@ -16,7 +29,11 @@ export const Columns: Column<Product>[] = [
     ),
   },
   { key: 'title', header: 'Title' },
-  { key: 'price', header: 'Price ($)' },
+  {
+    key: 'price',
+    header: <PriceHeader />,
+    render: value => <PriceCell price={value as number} />,
+  },
   { key: 'category', header: 'Category' },
   { key: 'rating', header: 'Rating' },
   {

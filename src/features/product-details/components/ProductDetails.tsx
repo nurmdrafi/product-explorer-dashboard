@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom'
 import { ROUTE } from '@config/app.config'
 import type { Product } from '@typings/product.types'
+import { useCurrency } from '@contexts/CurrencyContext'
+import { formatPrice } from '@utils/currency'
 
 interface ProductDetailsProps {
   product: Product
 }
 
 export function ProductDetails({ product }: ProductDetailsProps) {
+  const { currency } = useCurrency()
+
   return (
     <div className='container mx-auto px-4 py-8'>
       <Link
@@ -43,7 +47,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
 
           <div className='mb-6'>
             <span className='text-3xl font-bold text-gray-900'>
-              ${product.price}
+              {formatPrice(product.price, currency)}
             </span>
             {product.discountPercentage > 0 && (
               <span className='ml-3 text-sm text-green-600'>
