@@ -1,4 +1,4 @@
-export type { Product, ProductsResponse, CategoriesResponse } from '@typings/product'
+export type { Product, ProductsResponse } from '@typings/product'
 export { useInfiniteProducts } from './hooks/useInfiniteProducts'
 export { useProductDetails } from './hooks/useProductDetails'
 export { ProductsTable } from './components/ProductsTable'

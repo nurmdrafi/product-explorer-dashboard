@@ -1,5 +1,5 @@
 export interface Product {
-  id: number;
+  id: string;
   title: string;
   description: string;
   category: string;
@@ -11,14 +11,37 @@ export interface Product {
   brand?: string;
   sku?: string;
   weight?: number;
+  dimensions?: Dimensions;
   warrantyInformation?: string;
   shippingInformation?: string;
   availabilityStatus?: string;
   returnPolicy?: string;
   minimumOrderQuantity?: number;
-
+  reviews?: Review[];
+  meta?: ProductMeta;
   thumbnail: string;
   images: string[];
+}
+
+export type Dimensions = {
+  width: number;
+  height: number;
+  depth: number;
+};
+
+export type ProductMeta = {
+  createdAt: string;
+  updatedAt: string;
+  barcode: string;
+  qrCode: string;
+};
+
+export interface Review {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
 }
 
 export interface ProductsResponse {
@@ -27,5 +50,3 @@ export interface ProductsResponse {
   skip: number;
   limit: number;
 }
-
-export type CategoriesResponse = string[];

@@ -3,6 +3,7 @@ import App from '@app/App'
 import { ROUTE } from '@config/app.config'
 import { ProductsPage } from '@pages/ProductsPage'
 import { ProductDetailsPage } from '@pages/ProductDetailsPage'
+import { CategoriesPage } from '@pages/CategoriesPage'
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.CATEGORIES,
-        element: <div>Categories Page</div>,
+        element: <CategoriesPage />,
       },
       {
         path: ROUTE.SEARCH,
