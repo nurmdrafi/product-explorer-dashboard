@@ -1,5 +1,5 @@
 import { useInfiniteScroll } from '@hooks/useInfiniteScroll'
-import { useInfiniteProducts } from '@features/products/hooks/useInfiniteProducts'
+import { useInfiniteProducts, ProductCategoryFilter } from '@features/products'
 import { ProductsTable } from '@features/products'
 
 export function ProductsPage() {
@@ -42,7 +42,9 @@ export function ProductsPage() {
   return (
     <div className='container mx-auto px-4 py-8'>
       <h1 className='text-3xl font-bold mb-6'>Products</h1>
-      
+
+      <ProductCategoryFilter />
+
       <ProductsTable products={products} />
 
       {/* Infinite scroll trigger */}

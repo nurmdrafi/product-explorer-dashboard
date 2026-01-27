@@ -5,3 +5,6 @@ export type Category = {
 }
 
 export type CategoriesResponse = Category[]
+
+export type CategoryList = string[]
+export type CategoryListResponse = CategoryList

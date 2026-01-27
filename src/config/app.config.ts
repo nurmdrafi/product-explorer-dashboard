@@ -7,6 +7,7 @@ export const API = {
   ENDPOINTS: {
     PRODUCTS: '/products',
     CATEGORIES: '/products/categories',
+    CATEGORY_LIST: '/products/category-list',
     SEARCH: '/products/search',
   },
 }
