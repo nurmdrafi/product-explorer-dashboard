@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import type { Currency } from '@typings/currency'
+import type { Currency } from '@typings/currency.types'
 import { CURRENCY } from '@config/app.config'
 
 interface CurrencyContextValue {

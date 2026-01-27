@@ -1,8 +1,8 @@
-import type { Column } from '@components/common/table/Table.types'
-import type { Product } from '@typings/product'
+import type { Column } from '@typings/table.types'
+import type { Product } from '@typings/product.types'
 import { Link } from 'react-router-dom'
 
-export const productsColumns: Column<Product>[] = [
+export const Columns: Column<Product>[] = [
   { key: 'id', header: 'ID' },
   {
     key: 'thumbnail',

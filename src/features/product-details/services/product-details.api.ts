@@ -1,5 +1,5 @@
 import { API } from '@config/app.config'
-import type { Product } from '@typings/product'
+import type { Product } from '@typings/product.types'
 
 export async function getProductById(id: number): Promise<Product> {
   const url = `${API.BASE_URL}${API.ENDPOINTS.PRODUCTS}/${id}`

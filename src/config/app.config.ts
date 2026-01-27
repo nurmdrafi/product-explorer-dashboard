@@ -1,4 +1,4 @@
-import type { Currency } from '@typings/currency'
+import type { Currency } from '@typings/currency.types'
 
 export const API = {
   BASE_URL: 'https://dummyjson.com',

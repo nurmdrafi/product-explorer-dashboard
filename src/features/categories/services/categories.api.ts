@@ -1,5 +1,5 @@
 import { API } from '@config/app.config'
-import type { CategoriesResponse } from '@typings/categories'
+import type { CategoriesResponse } from '@typings/categories.types'
 
 export async function getCategories(): Promise<CategoriesResponse> {
   const url = `${API.BASE_URL}${API.ENDPOINTS.CATEGORIES}`

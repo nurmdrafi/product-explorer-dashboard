@@ -1,16 +1,16 @@
 import { create } from 'zustand'
 import { API } from '@config/app.config'
-import type { ProductQueryParams } from '@typings/query'
+import type { ProductQueryParams } from '@typings/query.types'
 
 interface ProductFiltersState {
-  // searchQuery: string
+  searchQuery: string
   category: string | null
   sortBy: 'price' | null
   order: 'asc' | 'desc' | null
   limit: number
   skip: number
 
-  // setSearchQuery: (query: string) => void
+  setSearchQuery: (query: string) => void
   setCategory: (category: string | null) => void
   setSortBy: (sortBy: 'price' | null) => void
   setOrder: (order: 'asc' | 'desc' | null) => void
@@ -22,17 +22,17 @@ interface ProductFiltersState {
 }
 
 export const useProductFilters = create<ProductFiltersState>((set, get) => ({
-  // searchQuery: '',
+  searchQuery: '',
   category: null,
   sortBy: null,
   order: null,
   limit: API.DEFAULT_LIMIT,
   skip: 0,
 
-  // setSearchQuery: query => {
-  //   set({ searchQuery: query })
-  // },
-  
+  setSearchQuery: query => {
+    set({ searchQuery: query })
+  },
+
   setCategory: category => {
     set({ category })
   },
@@ -49,7 +49,7 @@ export const useProductFilters = create<ProductFiltersState>((set, get) => ({
   setSkip: skip => set({ skip }),
 
   resetFilters: () => set({
-    // searchQuery: '',
+    searchQuery: '',
     category: null,
     sortBy: null,
     order: null,
@@ -60,12 +60,12 @@ export const useProductFilters = create<ProductFiltersState>((set, get) => ({
   syncWithURL: searchParams => {
     const state = get()
     const updates: Partial<typeof state> = {}
-    
-    // const searchQuery = searchParams.get('q')
-    // if (searchQuery !== state.searchQuery) {
-    //   updates.searchQuery = searchQuery || ''
-    // }
-    
+
+    const searchQuery = searchParams.get('q')
+    if (searchQuery !== state.searchQuery) {
+      updates.searchQuery = searchQuery || ''
+    }
+
     const category = searchParams.get('category')
     if (category !== state.category) {
       updates.category = category
@@ -93,7 +93,7 @@ export const useProductFilters = create<ProductFiltersState>((set, get) => ({
       skip: state.skip,
     }
 
-    // if (state.searchQuery) params.q = state.searchQuery
+    if (state.searchQuery) params.q = state.searchQuery
     if (state.category) params.category = state.category
     if (state.sortBy) params.sortBy = state.sortBy
     if (state.order) params.order = state.order

@@ -4,6 +4,7 @@ import { ROUTE } from '@config/app.config'
 import { ProductsPage } from '@pages/ProductsPage'
 import { ProductDetailsPage } from '@pages/ProductDetailsPage'
 import { CategoriesPage } from '@pages/CategoriesPage'
+import { SearchPage } from '@pages/SearchPage'
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.SEARCH,
-        element: <div>Search Page</div>,
+        element: <SearchPage />,
       },
       {
         path: ROUTE.SETTINGS,

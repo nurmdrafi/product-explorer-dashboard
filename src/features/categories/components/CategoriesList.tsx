@@ -5,6 +5,7 @@ interface CategoriesListProps {
 }
 
 export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
+  // Get categories list data
   const { categories, isLoading, error } = useCategories()
 
   if (isLoading) {

@@ -1,6 +1,6 @@
 import { API } from '@config/app.config'
-import type { CategoryListResponse } from '@typings/categories'
-import type { ProductsResponse } from '@typings/product'
+import type { CategoryListResponse } from '@typings/categories.types'
+import type { ProductsResponse } from '@typings/product.types'
 
 interface GetProductsParams {
   limit: number
@@ -20,16 +20,11 @@ export async function getProducts(
     // Use category-specific endpoint: /products/category/{category}
     url = `${API.BASE_URL}${API.ENDPOINTS.PRODUCTS}/category/${params.category}`
   } else {
-    // Use general products endpoint with search params
     const searchParams = new URLSearchParams({
       limit: String(params.limit),
       skip: String(params.skip),
     })
-    
-    if (params.q) {
-      searchParams.append('q', params.q)
-    }
-    
+
     if (params.sortBy) {
       searchParams.append('sortBy', params.sortBy)
     }
@@ -38,7 +33,18 @@ export async function getProducts(
       searchParams.append('order', params.order)
     }
     
-    url = `${API.BASE_URL}${API.ENDPOINTS.PRODUCTS}?${searchParams}`
+    if (params.q) {
+      searchParams.append('q', params.q)
+      // Use search endpoint: /products/search?q={query}
+      url = `${API.BASE_URL}${API.ENDPOINTS.SEARCH}?${searchParams}`
+    } else {
+      // Use general products endpoint: /products
+      url = `${API.BASE_URL}${API.ENDPOINTS.PRODUCTS}?${searchParams}`
+    }
+    
+    
+    
+    
   }
 
   const response = await fetch(url)

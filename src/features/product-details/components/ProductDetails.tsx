@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ROUTE } from '@config/app.config'
-import type { Product } from '@typings/product'
+import type { Product } from '@typings/product.types'
 
 interface ProductDetailsProps {
   product: Product

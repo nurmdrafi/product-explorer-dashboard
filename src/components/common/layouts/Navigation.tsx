@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ROUTE } from '@config/app.config'
+import { SearchBar } from '@features/search/components/SearchBar'
 
 interface NavigationItem {
   name: string
@@ -12,6 +13,7 @@ interface NavigationProps {
 }
 
 export function Navigation({ className = '' }: NavigationProps) {
+  // States
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
 
@@ -25,7 +27,6 @@ export function Navigation({ className = '' }: NavigationProps) {
   const navigationItems: NavigationItem[] = [
     { name: 'Products', path: ROUTE.PRODUCTS },
     { name: 'Categories', path: ROUTE.CATEGORIES },
-    { name: 'Search', path: ROUTE.SEARCH },
     { name: 'Settings', path: ROUTE.SETTINGS },
   ]
 
@@ -49,6 +50,7 @@ export function Navigation({ className = '' }: NavigationProps) {
 
           {/* Desktop Navigation */}
           <div className='hidden md:flex items-center space-x-8'>
+            <SearchBar />
             {navigationItems.map(item => (
               <Link
                 key={item.path}
@@ -90,7 +92,8 @@ export function Navigation({ className = '' }: NavigationProps) {
       {/* Mobile Navigation Menu */}
       <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className='pt-2 pb-3 space-y-1 bg-gray-50 border-t border-gray-200'>
-            {navigationItems.map(item => (
+          <SearchBar className='px-4 pb-2' />
+          {navigationItems.map(item => (
             <Link
               key={item.path}
               to={item.path}
@@ -105,7 +108,6 @@ export function Navigation({ className = '' }: NavigationProps) {
             </Link>
           ))}
         </div>
-
       </div>
     </nav>
   )
