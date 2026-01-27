@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ROUTE } from '@config/app.config'
-import { SearchBar } from '@features/search/components/SearchBar'
+import { SearchBar } from '@components/common/search/SearchBar'
 
 interface NavigationItem {
   name: string
