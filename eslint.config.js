@@ -20,6 +20,7 @@ export default [
       'postcss.config.js',
       'tailwind.config.ts',
       'commitlint.config.js',
+      'src/components/commn/icons/**',
     ],
   },
 

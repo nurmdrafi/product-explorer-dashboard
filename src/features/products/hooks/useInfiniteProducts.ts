@@ -32,9 +32,11 @@ export function useInfiniteProducts() {
   })
 
   const products = data?.pages.flatMap(page => page.products) ?? []
+  const total = data?.pages[0]?.total ?? 0
 
   return {
     products,
+    total,
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,

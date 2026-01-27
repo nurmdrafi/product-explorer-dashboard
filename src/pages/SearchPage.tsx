@@ -39,7 +39,7 @@ export function SearchPage() {
   // Show no query state
   if (!hasQuery) {
     return (
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container'>
         <div className='mb-6'>
           <h1 className='text-3xl font-bold mb-2'>Search Products</h1>
         </div>
@@ -53,7 +53,7 @@ export function SearchPage() {
   // Show loading state
   if (isLoading) {
     return (
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container'>
         <div className='mb-6'>
           <h1 className='text-3xl font-bold mb-2'>Search Products</h1>
           {searchQuery && (
@@ -70,7 +70,7 @@ export function SearchPage() {
   // Show error state
   if (error) {
     return (
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container'>
         <div className='mb-6'>
           <h1 className='text-3xl font-bold mb-2'>Search Products</h1>
           {searchQuery && (
@@ -89,7 +89,7 @@ export function SearchPage() {
   // Show no results state
   if (products.length === 0) {
     return (
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container'>
         <div className='mb-6'>
           <h1 className='text-3xl font-bold mb-2'>Search Products</h1>
           {searchQuery && (
@@ -106,7 +106,7 @@ export function SearchPage() {
   }
 
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className='container'>
       <div className='mb-6'>
         <h1 className='text-3xl font-bold mb-2'>Search Products</h1>
         {searchQuery && (

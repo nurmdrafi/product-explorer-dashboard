@@ -12,7 +12,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
   const { currency } = useCurrency()
 
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className='container'>
       <Link
         to={ROUTE.PRODUCTS}
         className='inline-block mb-6 text-green-600 hover:text-green-800'

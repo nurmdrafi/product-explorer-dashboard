@@ -9,7 +9,7 @@ export function ProductDetailsPage() {
 
   if (isLoading) {
     return (
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container'>
         <p className='text-gray-600'>Loading product details...</p>
       </div>
     )
@@ -17,7 +17,7 @@ export function ProductDetailsPage() {
 
   if (error) {
     return (
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container'>
         <p className='text-red-500'>
           Error loading product: {(error as Error).message}
         </p>
@@ -27,7 +27,7 @@ export function ProductDetailsPage() {
 
   if (!product) {
     return (
-      <div className='container mx-auto px-4 py-8'>
+      <div className='container'>
         <p className='text-gray-500'>Product not found</p>
       </div>
     )
