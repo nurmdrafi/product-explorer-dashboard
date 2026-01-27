@@ -30,6 +30,9 @@ export const QUERY = {
   RETRY: 3,
 }
 
+export const INTERSECTION = {
+  THRESHOLD: 0.1,
+  ROOT_MARGIN: 200
+}
+
 export const SEARCH_DEBOUNCE_MS = 300
-export const INFINITE_SCROLL_THRESHOLD = 200
-export const INTERSECTION_THRESHOLD = 0.1

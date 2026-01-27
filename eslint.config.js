@@ -6,7 +6,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import tseslint from 'typescript-eslint'
 
 export default [
-  // Global ignores - MUST be first
+  // Global ignores
   {
     ignores: [
       'node_modules/**',
@@ -27,6 +27,7 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   react.configs.flat.recommended,
+  reactHooks.configs.flat.recommended,
 
   // Main configuration
   {

@@ -1,20 +1,26 @@
 import { API } from '@config/app.config'
 import type { ProductsResponse } from '@typings/product'
 
-// Fetch products with pagination
-export async function getProducts(options: {
+interface GetProductsParams {
   limit: number
   skip: number
-}): Promise<ProductsResponse> {
-  const params = new URLSearchParams({
-    limit: String(options.limit),
-    skip: String(options.skip),
+}
+
+export async function getProducts(
+  params: GetProductsParams
+): Promise<ProductsResponse> {
+  const searchParams = new URLSearchParams({
+    limit: String(params.limit),
+    skip: String(params.skip),
   })
 
-  const url = `${API.BASE_URL}${API.ENDPOINTS.PRODUCTS}?${params}`
+  const url = `${API.BASE_URL}${API.ENDPOINTS.PRODUCTS}?${searchParams}`
+  
   const response = await fetch(url)
 
-  if (!response.ok) throw new Error('Failed to fetch products')
+  if (!response.ok) {
+    throw new Error(`Failed to fetch products: ${response.statusText}`)
+  }
 
   return response.json()
 }
