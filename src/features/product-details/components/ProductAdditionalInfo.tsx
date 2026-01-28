@@ -6,13 +6,13 @@ interface ProductAdditionalInfoProps {
 
 export function ProductAdditionalInfo({ product }: ProductAdditionalInfoProps) {
   const hasInfo =
-    product.brand ||
-    product.sku ||
-    product.weight ||
-    product.dimensions ||
-    product.warrantyInformation ||
-    product.shippingInformation ||
-    product.returnPolicy
+    product?.brand ||
+    product?.sku ||
+    product?.weight ||
+    product?.dimensions ||
+    product?.warrantyInformation ||
+    product?.shippingInformation ||
+    product?.returnPolicy
 
   if (!hasInfo) return null
 
@@ -22,48 +22,48 @@ export function ProductAdditionalInfo({ product }: ProductAdditionalInfoProps) {
         Additional Information
       </h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'>
-        {product.brand && (
+        {product?.brand && (
           <div className='space-y-1'>
             <span className='text-xs md:text-sm text-gray-500'>Brand</span>
-            <p className='text-sm md:text-base font-medium text-gray-900'>{product.brand}</p>
+            <p className='text-sm md:text-base font-medium text-gray-900'>{product?.brand}</p>
           </div>
         )}
-        {product.sku && (
+        {product?.sku && (
           <div className='space-y-1'>
             <span className='text-xs md:text-sm text-gray-500'>SKU</span>
-            <p className='text-sm md:text-base font-medium text-gray-900'>{product.sku}</p>
+            <p className='text-sm md:text-base font-medium text-gray-900'>{product?.sku}</p>
           </div>
         )}
-        {product.weight && (
+        {product?.weight && (
           <div className='space-y-1'>
             <span className='text-xs md:text-sm text-gray-500'>Weight</span>
-            <p className='text-sm md:text-base font-medium text-gray-900'>{product.weight}g</p>
+            <p className='text-sm md:text-base font-medium text-gray-900'>{product?.weight}g</p>
           </div>
         )}
-        {product.dimensions && (
+        {product?.dimensions && (
           <div className='space-y-1'>
             <span className='text-xs md:text-sm text-gray-500'>Dimensions</span>
             <p className='text-sm md:text-base font-medium text-gray-900'>
-              {product.dimensions.width} x {product.dimensions.height} x {product.dimensions.depth} cm
+              {product?.dimensions?.width ?? '-'} x {product?.dimensions?.height ?? '-'} x {product?.dimensions?.depth ?? '-'} cm
             </p>
           </div>
         )}
-        {product.warrantyInformation && (
+        {product?.warrantyInformation && (
           <div className='space-y-1'>
             <span className='text-xs md:text-sm text-gray-500'>Warranty</span>
-            <p className='text-sm md:text-base font-medium text-gray-900'>{product.warrantyInformation}</p>
+            <p className='text-sm md:text-base font-medium text-gray-900'>{product?.warrantyInformation}</p>
           </div>
         )}
-        {product.shippingInformation && (
+        {product?.shippingInformation && (
           <div className='space-y-1'>
             <span className='text-xs md:text-sm text-gray-500'>Shipping</span>
-            <p className='text-sm md:text-base font-medium text-gray-900'>{product.shippingInformation}</p>
+            <p className='text-sm md:text-base font-medium text-gray-900'>{product?.shippingInformation}</p>
           </div>
         )}
-        {product.returnPolicy && (
+        {product?.returnPolicy && (
           <div className='space-y-1'>
             <span className='text-xs md:text-sm text-gray-500'>Return Policy</span>
-            <p className='text-sm md:text-base font-medium text-gray-900'>{product.returnPolicy}</p>
+            <p className='text-sm md:text-base font-medium text-gray-900'>{product?.returnPolicy}</p>
           </div>
         )}
       </div>

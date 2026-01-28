@@ -24,12 +24,12 @@ export const Columns: Column<Product>[] = [
     render: (_value, product) => (
       <div className='flex items-center gap-3'>
         <img
-          src={product.thumbnail}
-          alt={product.title}
+          src={product?.thumbnail}
+          alt={product?.title}
           loading='lazy'
           className='w-12 h-12 object-cover rounded-md'
         />
-        <span className='font-medium text-gray-900'>{product.title}</span>
+        <span className='font-medium text-gray-900'>{product?.title}</span>
       </div>
     ),
   },
@@ -38,7 +38,7 @@ export const Columns: Column<Product>[] = [
     header: 'Category',
     render: value => {
       const category = value as string
-      return <span>{category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ')}</span>
+      return <span>{category ? category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ') : '-'}</span>
     },
   },
   {
@@ -49,7 +49,7 @@ export const Columns: Column<Product>[] = [
   {
     key: 'stock',
     header: 'Stock',
-    render: (_value, product) => <StockBadge stock={product.stock} />,
+    render: (_value, product) => <StockBadge stock={product?.stock} />,
   },
   {
     key: 'rating',
@@ -61,7 +61,7 @@ export const Columns: Column<Product>[] = [
     header: 'Actions',
     render: (_value, product) => (
       <Link
-        to={`/products/${product.id}`}
+        to={`/products/${product?.id}`}
         className='inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium
          text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50
          transition-colors duration-200'

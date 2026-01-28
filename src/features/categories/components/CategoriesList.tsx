@@ -25,7 +25,7 @@ export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
       </div>}>
         <ErrorState
           title='Error Loading Categories'
-          message={(error as Error).message || 'Unable to load categories. Please try again later.'}
+          message={(error as Error)?.message || 'Unable to load categories. Please try again later.'}
           onRetry={() => window.location.reload()}
         />
       </Suspense>
@@ -37,22 +37,22 @@ export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
   return (
     <div className='flex gap-6'>
       <div className='flex-1 space-y-4'>
-        {groupedCategories.map((group: CategoryGroup) => (
+        {groupedCategories?.map((group: CategoryGroup) => (
           <div key={group.letter} id={`section-${group.letter}`} className='space-y-2'>
             <h2 className='text-lg font-semibold text-gray-900 px-1'>
               {group.letter}
             </h2>
             <hr className='border-gray-300'/>
             <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
-              {group.categories.map((category: Category) => (
+              {group.categories?.filter((cat): cat is Category => !!cat).map((category: Category) => (
                 <button
-                  key={category?.slug}
-                  onClick={() => onCategoryClick?.(String(category?.slug))}
+                  key={category.slug}
+                  onClick={() => onCategoryClick?.(String(category.slug))}
                   className='rounded-lg border border-gray-200 bg-white p-4 text-center transition-colors
                    hover:bg-gray-50 hover:border-gray-300 cursor-pointer'
                 >
                   <span className='block text-sm font-medium capitalize text-gray-900'>
-                    {category?.name}
+                    {category.name}
                   </span>
                 </button>
               ))}

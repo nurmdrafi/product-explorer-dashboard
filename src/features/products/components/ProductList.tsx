@@ -144,7 +144,7 @@ export function ProductList({
       </div>}>
         <ErrorState
           title='Error Loading Products'
-          message={(error as Error).message || 'Unable to load products. Please try again later.'}
+          message={(error as Error)?.message || 'Unable to load products. Please try again later.'}
           onRetry={() => window.location.reload()}
         />
       </Suspense>
@@ -152,7 +152,7 @@ export function ProductList({
   }
 
   // Show no results state
-  if (products.length === 0) {
+  if (products?.length === 0) {
     return (
       <div className='text-center py-12'>
         <p className='text-gray-500 text-lg'>No products found</p>
@@ -184,7 +184,7 @@ export function ProductList({
                   <option value='all'>All Categories</option>
                   {categories?.map(category => (
                     <option key={category} value={category}>
-                      {category.charAt(0).toUpperCase() + category.slice(1).replace(/-/g, ' ')}
+                      {category?.charAt(0)?.toUpperCase() + category?.slice(1)?.replace(/-/g, ' ')}
                     </option>
                   ))}
                 </select>
@@ -256,7 +256,7 @@ export function ProductList({
             </div>
           )}
           
-          {!isFetchingNextPage && !hasNextPage && products.length > 0 && (
+          {!isFetchingNextPage && !hasNextPage && products?.length > 0 && (
             <p className='text-gray-400 text-sm'>
               You&rsquo;ve reached the end of the list
             </p>

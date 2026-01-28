@@ -38,7 +38,7 @@ export function FallbackError({ error, resetError }: Props) {
       </h1>
 
       <p className='text-gray-600 mb-6'>
-        {error.message || 'An unexpected error occurred'}
+        {error?.message || 'An unexpected error occurred'}
       </p>
 
       <div className='flex flex-col sm:flex-row gap-3 justify-center'>

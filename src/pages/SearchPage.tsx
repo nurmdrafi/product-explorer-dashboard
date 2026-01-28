@@ -89,7 +89,7 @@ export function SearchPage() {
         </div>}>
           <ErrorState
             title='Error Loading Search Results'
-            message={(error as Error).message || 'Unable to load search results. Please try again later.'}
+            message={(error as Error)?.message || 'Unable to load search results. Please try again later.'}
             showBackButton={false}
             onRetry={() => window.location.reload()}
           />
@@ -99,7 +99,7 @@ export function SearchPage() {
   }
 
   // Show no results state
-  if (products.length === 0) {
+  if (products?.length === 0) {
     return (
       <div className='container'>
         <div className='mb-6'>

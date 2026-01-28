@@ -25,7 +25,7 @@ export function ProductDetailsPage() {
       </div>}>
         <ErrorState
           title='Error Loading Product'
-          message={(error as Error).message || 'Unable to load product details. Please try again later.'}
+          message={(error as Error)?.message || 'Unable to load product details. Please try again later.'}
           onRetry={() => window.location.reload()}
         />
       </Suspense>

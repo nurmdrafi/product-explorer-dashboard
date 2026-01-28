@@ -18,7 +18,7 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product }: ProductDetailsProps) {
   const { currency } = useCurrency()
-  const [selectedImage, setSelectedImage] = useState(product.thumbnail)
+  const [selectedImage, setSelectedImage] = useState(product?.thumbnail)
 
   return (
     <div className='container max-w-6xl px-4 py-6 md:py-8'>
@@ -36,26 +36,28 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         <div className='space-y-3 md:space-y-4'>
           <img
             src={selectedImage}
-            alt={product.title}
+            alt={product?.title}
             loading='lazy'
             className='w-full h-auto rounded-lg border border-gray-200'
           />
-          {product.images.length > 0 && (
+          {product?.images?.length > 0 && (
             <div className='grid grid-cols-4 sm:grid-cols-5 gap-1.5 md:gap-2'>
-              {[product.thumbnail, ...product.images.slice(0, 3)].map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`${product.title} ${index + 1}`}
-                  loading='lazy'
-                  onClick={() => setSelectedImage(image)}
-                  className={`w-full h-16 md:h-20 object-cover rounded border cursor-pointer transition-all ${
-                    selectedImage === image
-                      ? 'border-blue-500 ring-2 ring-blue-200'
-                      : 'border-gray-200 hover:border-blue-500'
-                  }`}
-                />
-              ))}
+              {[product?.thumbnail, ...(product?.images?.slice(0, 3) || [])]
+                ?.filter((image): image is string => !!image)
+                ?.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`${product?.title} ${index + 1}`}
+                    loading='lazy'
+                    onClick={() => setSelectedImage(image)}
+                    className={`w-full h-16 md:h-20 object-cover rounded border cursor-pointer transition-all ${
+                      selectedImage === image
+                        ? 'border-blue-500 ring-2 ring-blue-200'
+                        : 'border-gray-200 hover:border-blue-500'
+                    }`}
+                  />
+                ))}
             </div>
           )}
         </div>
@@ -64,28 +66,28 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           <div className='space-y-2 md:space-y-3'>
             <div className='flex flex-wrap items-center gap-2 md:gap-3'>
               <span className='px-2 md:px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full'>
-                {product.category.charAt(0).toUpperCase() + product.category.slice(1).replace(/-/g, ' ')}
+                {product?.category?.charAt(0)?.toUpperCase() + product?.category?.slice(1)?.replace(/-/g, ' ')}
               </span>
-              <StockBadge stock={product.stock} />
+              <StockBadge stock={product?.stock} />
             </div>
             <h1 className='text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 leading-tight'>
-              {product.title}
+              {product?.title}
             </h1>
             <div className='flex items-center gap-2 md:gap-4'>
-              <StarRating rating={product.rating} />
-              <span className='text-xs md:text-sm text-gray-500'>({product.rating} out of 5)</span>
+              <StarRating rating={product?.rating} />
+              <span className='text-xs md:text-sm text-gray-500'>({product?.rating} out of 5)</span>
             </div>
           </div>
 
           <div>
             <p className='text-2xl md:text-3xl font-bold text-gray-900'>
-              {formatPrice(product.price, currency)}
+              {formatPrice(product?.price, currency)}
             </p>
           </div>
 
           <div className='space-y-3 md:space-y-4'>
             <h3 className='text-base md:text-lg font-semibold text-gray-900'>Description</h3>
-            <p className='text-sm md:text-base text-gray-600 leading-relaxed'>{product.description}</p>
+            <p className='text-sm md:text-base text-gray-600 leading-relaxed'>{product?.description}</p>
           </div>
 
           <Suspense fallback={null}>
