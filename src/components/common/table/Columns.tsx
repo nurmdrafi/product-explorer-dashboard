@@ -1,7 +1,7 @@
 import type { Column } from '@typings/table.types'
 import type { Product } from '@typings/product.types'
 import { useCurrency } from '@contexts/CurrencyContext'
-import { formatPrice } from '@utils/currency'
+import { formatPrice, getCurrencySymbol } from '@utils/currency'
 import { StarRating } from '@components/common/StarRating'
 import { StockBadge } from '@components/common/StockBadge'
 import { Link } from 'react-router-dom'
@@ -13,7 +13,7 @@ function PriceCell({ price }: { price: number }) {
 
 function PriceHeader() {
   const { currency } = useCurrency()
-  const symbol = currency === 'USD' ? '$' : currency === 'GBP' ? '£' : '€'
+  const symbol = getCurrencySymbol(currency)
   return <span>Price ({symbol})</span>
 }
 

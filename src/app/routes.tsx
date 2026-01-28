@@ -22,14 +22,14 @@ function PageLoader() {
   )
 }
 
+function withErrorBoundary(component: React.ReactElement) {
+  return <ErrorBoundary>{component}</ErrorBoundary>
+}
+
 export const router = createBrowserRouter([
   {
     path: ROUTE.HOME,
-    element: (
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    ),
+    element: <App />,
     children: [
       {
         path: ROUTE.HOME,
@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.PRODUCTS,
-        element: (
+        element: withErrorBoundary(
           <Suspense fallback={<PageLoader />}>
             <ProductsPage />
           </Suspense>
@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
       },
       {
         path: `${ROUTE.PRODUCTS}/:id`,
-        element: (
+        element: withErrorBoundary(
           <Suspense fallback={<PageLoader />}>
             <ProductDetailsPage />
           </Suspense>
@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.CATEGORIES,
-        element: (
+        element: withErrorBoundary(
           <Suspense fallback={<PageLoader />}>
             <CategoriesPage />
           </Suspense>
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.SEARCH,
-        element: (
+        element: withErrorBoundary(
           <Suspense fallback={<PageLoader />}>
             <SearchPage />
           </Suspense>
@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.SETTINGS,
-        element: (
+        element: withErrorBoundary(
           <Suspense fallback={<PageLoader />}>
             <SettingsPage />
           </Suspense>
@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: (
+        element: withErrorBoundary(
           <Suspense fallback={<PageLoader />}>
             <NotFoundPage />
           </Suspense>
