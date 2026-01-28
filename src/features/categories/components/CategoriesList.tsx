@@ -1,5 +1,6 @@
 import { CategoryGroupSkeleton } from '@components/common/skeleton'
 import { useCategories, groupCategoriesByLetter } from '@features/categories'
+import { ErrorState } from '@components/common/errors'
 import type { Category, CategoryGroup } from '@typings/categories.types'
 
 interface CategoriesListProps {
@@ -15,9 +16,11 @@ export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
 
   if (error) {
     return (
-      <div className='rounded-lg border border-red-200 bg-red-50 p-4 text-red-800'>
-        Failed to load categories: {(error as Error).message}
-      </div>
+      <ErrorState
+        title='Error Loading Categories'
+        message={(error as Error).message || 'Unable to load categories. Please try again later.'}
+        onRetry={() => window.location.reload()}
+      />
     )
   }
 

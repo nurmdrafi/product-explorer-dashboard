@@ -1,5 +1,6 @@
 import { useInfiniteProducts } from '@features/products'
 import { ProductList } from '@features/products/components/ProductList'
+import { ErrorState } from '@components/common/errors'
 
 export function ProductsPage() {
   const {
@@ -14,11 +15,11 @@ export function ProductsPage() {
 
   if (error) {
     return (
-      <div className='container'>
-        <p className='text-red-500'>
-          Error loading products: {error.message}
-        </p>
-      </div>
+      <ErrorState
+        title='Error Loading Products'
+        message={(error as Error).message || 'Unable to load products. Please try again later.'}
+        onRetry={() => window.location.reload()}
+      />
     )
   }
 
