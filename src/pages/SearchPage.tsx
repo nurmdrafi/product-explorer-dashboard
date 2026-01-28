@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSearch } from '@features/search'
 import { useProductFilters } from '@store/features/products'
-import { ErrorState } from '@components/common/errors'
 import { TableSkeleton } from '@components/common/skeleton'
 
 import { ProductList } from '@features/products/components/ProductList'
+
+const ErrorState = lazy(() =>
+  import('@components/common/errors').then(m => ({ default: m.ErrorState }))
+)
 
 export function SearchPage() {
   // States
@@ -81,12 +84,16 @@ export function SearchPage() {
             </p>
           )}
         </div>
-        <ErrorState
-          title='Error Loading Search Results'
-          message={(error as Error).message || 'Unable to load search results. Please try again later.'}
-          showBackButton={false}
-          onRetry={() => window.location.reload()}
-        />
+        <Suspense fallback={<div className='flex items-center justify-center min-h-64'>
+          <div className='w-12 h-12 border-4 border-[#14b8a6] border-t-transparent rounded-full animate-spin' />
+        </div>}>
+          <ErrorState
+            title='Error Loading Search Results'
+            message={(error as Error).message || 'Unable to load search results. Please try again later.'}
+            showBackButton={false}
+            onRetry={() => window.location.reload()}
+          />
+        </Suspense>
       </div>
     )
   }

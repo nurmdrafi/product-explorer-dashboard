@@ -1,4 +1,5 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useTransition } from 'react'
 import type { JSX } from 'react'
 import { ROUTE } from '@config/app.config'
 import { CubeIcon, GridIcon, GearIcon } from '@components/common/icons'
@@ -18,10 +19,18 @@ const navItems: NavItem[] = [
 
 export function Sidebar() {
   const location = useLocation()
+  const navigate = useNavigate()
+  const [isPending, startTransition] = useTransition()
   const { currency } = useCurrency()
 
   const isActive = (href: string) => {
     return location.pathname === href
+  }
+
+  const handleNav = (href: string) => {
+    startTransition(() => {
+      navigate(href)
+    })
   }
 
   return (
@@ -35,20 +44,22 @@ export function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className='flex-1 space-y-1 p-4'>
+      <nav className='flex-1 space-y-1 p-4' aria-label='Main navigation'>
         {navItems.map(item => (
-          <Link
+          <button
             key={item.name}
-            to={item.href}
-            className={`flex items-center space-x-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+            onClick={() => handleNav(item.href)}
+            disabled={isPending}
+            className={`flex items-center space-x-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors w-full text-left ${
               isActive(item.href)
                 ? 'bg-white/10 text-white'
                 : 'text-white/70 hover:bg-white/5 hover:text-white'
-            }`}
+            } ${isPending ? 'opacity-50 cursor-wait' : ''}`}
+            aria-current={isActive(item.href) ? 'page' : undefined}
           >
             <item.icon className='h-5 w-5' />
             <span>{item.name}</span>
-          </Link>
+          </button>
         ))}
       </nav>
 

@@ -1,6 +1,11 @@
+import { lazy, Suspense } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTE } from '@config/app.config'
 import { CenteredCard } from '@components/common/CenteredCard'
+
+const ErrorActions = lazy(() =>
+  import('./ErrorActions').then(m => ({ default: m.ErrorActions }))
+)
 
 interface Props {
   title?: string
@@ -46,30 +51,9 @@ export function ErrorState({
         {message || 'Unable to load data. Please try again later.'}
       </p>
 
-      <div className='flex flex-col sm:flex-row gap-3 justify-center'>
-        {onRetry && (
-          <button
-            onClick={onRetry}
-            className='inline-flex items-center justify-center px-4 py-2
-              border border-transparent rounded-md shadow-sm text-sm font-medium
-              text-white bg-blue-600 hover:bg-blue-700 focus:outline-none
-              focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-11'
-          >
-            Try Again
-          </button>
-        )}
-        {showBackButton && (
-          <button
-            onClick={() => navigate(ROUTE.PRODUCTS)}
-            className='inline-flex items-center justify-center px-4 py-2
-              border border-gray-300 rounded-md shadow-sm text-sm font-medium
-              text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
-              focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 min-h-11'
-          >
-            Back to Products
-          </button>
-        )}
-      </div>
+      <Suspense fallback={<div className='h-11' />}>
+        <ErrorActions onRetry={onRetry} showBackButton={showBackButton} onBack={() => navigate(ROUTE.PRODUCTS)} />
+      </Suspense>
     </CenteredCard>
   )
 }

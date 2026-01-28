@@ -1,10 +1,20 @@
+import { lazy, Suspense } from 'react'
 import { MenuIcon } from '@components/common/icons'
 import { SearchBar } from '@components/common/search/SearchBar'
-import { MobileNav } from './MobileNav'
+
+const MobileNav = lazy(() => import('./MobileNav').then(m => ({ default: m.MobileNav })))
 
 interface TopHeaderProps {
   onMenuToggle: () => void
   isMobileMenuOpen: boolean
+}
+
+function MobileNavFallback() {
+  return (
+    <div className='fixed inset-0 bg-black/50 z-50 flex items-center justify-center md:hidden'>
+      <div className='w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin' />
+    </div>
+  )
 }
 
 export function TopHeader({ onMenuToggle, isMobileMenuOpen }: TopHeaderProps) {
@@ -28,8 +38,12 @@ export function TopHeader({ onMenuToggle, isMobileMenuOpen }: TopHeaderProps) {
         </div>
       </header>
 
-      {/* Mobile navigation overlay */}
-      <MobileNav isOpen={isMobileMenuOpen} onClose={() => onMenuToggle()} />
+      {/* Mobile navigation overlay - lazy loaded */}
+      {isMobileMenuOpen && (
+        <Suspense fallback={<MobileNavFallback />}>
+          <MobileNav isOpen={isMobileMenuOpen} onClose={() => onMenuToggle()} />
+        </Suspense>
+      )}
     </>
   )
 }

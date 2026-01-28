@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTE } from '@config/app.config'
 import type { Product } from '@typings/product.types'
@@ -6,6 +6,11 @@ import { useCurrency } from '@contexts/CurrencyContext'
 import { formatPrice } from '@utils/currency'
 import { StarRating } from '@components/common/StarRating'
 import { StockBadge } from '@components/common/StockBadge'
+
+const ProductTags = lazy(() => import('./ProductTags').then(m => ({ default: m.ProductTags })))
+const ProductAdditionalInfo = lazy(() =>
+  import('./ProductAdditionalInfo').then(m => ({ default: m.ProductAdditionalInfo }))
+)
 
 interface ProductDetailsProps {
   product: Product
@@ -32,6 +37,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           <img
             src={selectedImage}
             alt={product.title}
+            loading='lazy'
             className='w-full h-auto rounded-lg border border-gray-200'
           />
           {product.images.length > 0 && (
@@ -41,6 +47,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
                   key={index}
                   src={image}
                   alt={`${product.title} ${index + 1}`}
+                  loading='lazy'
                   onClick={() => setSelectedImage(image)}
                   className={`w-full h-16 md:h-20 object-cover rounded border cursor-pointer transition-all ${
                     selectedImage === image
@@ -81,21 +88,9 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             <p className='text-sm md:text-base text-gray-600 leading-relaxed'>{product.description}</p>
           </div>
 
-          {product.tags.length > 0 && (
-            <div className='space-y-2'>
-              <span className='text-sm font-medium text-gray-700'>Tags</span>
-              <div className='flex flex-wrap gap-1.5 md:gap-2'>
-                {product.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className='px-2 md:px-3 py-1 bg-indigo-100 text-indigo-700 text-xs md:text-sm font-medium rounded-md'
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
+          <Suspense fallback={null}>
+            <ProductTags product={product} />
+          </Suspense>
 
           <div className='flex flex-col sm:flex-row gap-2 md:gap-3 pt-4'>
             <button
@@ -114,57 +109,9 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         </div>
       </div>
 
-      <div className='mt-8 md:mt-12 border-t border-gray-200 pt-6 md:pt-8'>
-        <h2 className='text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6'>
-          Additional Information
-        </h2>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'>
-          {product.brand && (
-            <div className='space-y-1'>
-              <span className='text-xs md:text-sm text-gray-500'>Brand</span>
-              <p className='text-sm md:text-base font-medium text-gray-900'>{product.brand}</p>
-            </div>
-          )}
-          {product.sku && (
-            <div className='space-y-1'>
-              <span className='text-xs md:text-sm text-gray-500'>SKU</span>
-              <p className='text-sm md:text-base font-medium text-gray-900'>{product.sku}</p>
-            </div>
-          )}
-          {product.weight && (
-            <div className='space-y-1'>
-              <span className='text-xs md:text-sm text-gray-500'>Weight</span>
-              <p className='text-sm md:text-base font-medium text-gray-900'>{product.weight}g</p>
-            </div>
-          )}
-          {product.dimensions && (
-            <div className='space-y-1'>
-              <span className='text-xs md:text-sm text-gray-500'>Dimensions</span>
-              <p className='text-sm md:text-base font-medium text-gray-900'>
-                {product.dimensions.width} x {product.dimensions.height} x {product.dimensions.depth} cm
-              </p>
-            </div>
-          )}
-          {product.warrantyInformation && (
-            <div className='space-y-1'>
-              <span className='text-xs md:text-sm text-gray-500'>Warranty</span>
-              <p className='text-sm md:text-base font-medium text-gray-900'>{product.warrantyInformation}</p>
-            </div>
-          )}
-          {product.shippingInformation && (
-            <div className='space-y-1'>
-              <span className='text-xs md:text-sm text-gray-500'>Shipping</span>
-              <p className='text-sm md:text-base font-medium text-gray-900'>{product.shippingInformation}</p>
-            </div>
-          )}
-          {product.returnPolicy && (
-            <div className='space-y-1'>
-              <span className='text-xs md:text-sm text-gray-500'>Return Policy</span>
-              <p className='text-sm md:text-base font-medium text-gray-900'>{product.returnPolicy}</p>
-            </div>
-          )}
-        </div>
-      </div>
+      <Suspense fallback={null}>
+        <ProductAdditionalInfo product={product} />
+      </Suspense>
     </div>
   )
 }

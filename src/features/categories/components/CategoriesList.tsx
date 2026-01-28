@@ -1,7 +1,11 @@
+import { lazy, Suspense } from 'react'
 import { CategoryGroupSkeleton } from '@components/common/skeleton'
 import { useCategories, groupCategoriesByLetter } from '@features/categories'
-import { ErrorState } from '@components/common/errors'
 import type { Category, CategoryGroup } from '@typings/categories.types'
+
+const ErrorState = lazy(() =>
+  import('@components/common/errors').then(m => ({ default: m.ErrorState }))
+)
 
 interface CategoriesListProps {
   onCategoryClick?: (category: string) => void
@@ -16,11 +20,15 @@ export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
 
   if (error) {
     return (
-      <ErrorState
-        title='Error Loading Categories'
-        message={(error as Error).message || 'Unable to load categories. Please try again later.'}
-        onRetry={() => window.location.reload()}
-      />
+      <Suspense fallback={<div className='flex items-center justify-center min-h-64'>
+        <div className='w-12 h-12 border-4 border-[#14b8a6] border-t-transparent rounded-full animate-spin' />
+      </div>}>
+        <ErrorState
+          title='Error Loading Categories'
+          message={(error as Error).message || 'Unable to load categories. Please try again later.'}
+          onRetry={() => window.location.reload()}
+        />
+      </Suspense>
     )
   }
 

@@ -1,13 +1,19 @@
+import { lazy, Suspense } from 'react'
 import { Table } from '@components/common/table/Table'
 import { Columns } from '@components/common/table/Columns'
-import { TableSkeleton } from '@components/common/skeleton'
-import { ErrorState } from '@components/common/errors'
 import { useProductFilters } from '@store/features/products'
 
 import { useGetProductsCategoryListData } from '@features/products/hooks/useGetProductsCategoryListData'
 import { useSearchParams } from 'react-router-dom'
 import { useInfiniteScroll } from '@hooks/useInfiniteScroll'
 import type { Product } from '@typings/product.types'
+
+const TableSkeleton = lazy(() =>
+  import('@components/common/skeleton').then(m => ({ default: m.TableSkeleton }))
+)
+const ErrorState = lazy(() =>
+  import('@components/common/errors').then(m => ({ default: m.ErrorState }))
+)
 
 interface ProductListProps {
   products: Product[]
@@ -123,7 +129,9 @@ export function ProductList({
             )}
           </div>
         )}
-        <TableSkeleton rows={10} columns={6} />
+        <Suspense fallback={<div className='h-64 animate-pulse bg-gray-100 rounded' />}>
+          <TableSkeleton rows={10} columns={6} />
+        </Suspense>
       </div>
     )
   }
@@ -131,11 +139,15 @@ export function ProductList({
   // Show error state
   if (error) {
     return (
-      <ErrorState
-        title='Error Loading Products'
-        message={(error as Error).message || 'Unable to load products. Please try again later.'}
-        onRetry={() => window.location.reload()}
-      />
+      <Suspense fallback={<div className='flex items-center justify-center min-h-64'>
+        <div className='w-12 h-12 border-4 border-[#14b8a6] border-t-transparent rounded-full animate-spin' />
+      </div>}>
+        <ErrorState
+          title='Error Loading Products'
+          message={(error as Error).message || 'Unable to load products. Please try again later.'}
+          onRetry={() => window.location.reload()}
+        />
+      </Suspense>
     )
   }
 
@@ -238,7 +250,9 @@ export function ProductList({
         >
           {isFetchingNextPage && (
             <div className='w-full'>
-              <TableSkeleton rows={3} columns={6} />
+              <Suspense fallback={<div className='h-20 animate-pulse bg-gray-100 rounded' />}>
+                <TableSkeleton rows={3} columns={6} />
+              </Suspense>
             </div>
           )}
           

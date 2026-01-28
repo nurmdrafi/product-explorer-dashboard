@@ -26,6 +26,7 @@ export const Columns: Column<Product>[] = [
         <img
           src={product.thumbnail}
           alt={product.title}
+          loading='lazy'
           className='w-12 h-12 object-cover rounded-md'
         />
         <span className='font-medium text-gray-900'>{product.title}</span>
