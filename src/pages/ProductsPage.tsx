@@ -12,14 +12,6 @@ export function ProductsPage() {
     error,
   } = useInfiniteProducts()
 
-  if (isLoading) {
-    return (
-      <div className='container'>
-        <p className='text-gray-600'>Loading products...</p>
-      </div>
-    )
-  }
-
   if (error) {
     return (
       <div className='container'>

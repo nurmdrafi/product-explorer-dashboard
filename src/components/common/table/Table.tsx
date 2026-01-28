@@ -1,4 +1,4 @@
-import type { TableProps } from '../../../types/table.types'
+import type { TableProps } from '@typings/table.types'
 
 export function Table<T>({ columns, data, keyExtractor }: TableProps<T>) {
   if (data.length === 0) {

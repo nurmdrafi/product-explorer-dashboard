@@ -1,5 +1,6 @@
 import { Table } from '@components/common/table/Table'
 import { Columns } from '@components/common/table/Columns'
+import { TableSkeleton } from '@components/common/skeleton'
 import { useProductFilters } from '@store/features/products'
 
 import { useGetProductsCategoryListData } from '@features/products/hooks/useGetProductsCategoryListData'
@@ -108,7 +109,22 @@ export function ProductList({
 
   // Show loading state
   if (isLoading) {
-    return <div className='text-center py-12'>Loading...</div>
+    return (
+      <div className='space-y-4'>
+        {showFilters && (
+          <div className='flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between'>
+            <div className='space-y-2'>
+              <div className='h-7 bg-gray-200 rounded animate-pulse w-40' />
+              <div className='h-4 bg-gray-200 rounded animate-pulse w-24' />
+            </div>
+            {showCategoryFilter && (
+              <div className='h-10 bg-gray-200 rounded animate-pulse w-64' />
+            )}
+          </div>
+        )}
+        <TableSkeleton rows={10} columns={6} />
+      </div>
+    )
   }
 
   // Show error state
@@ -214,7 +230,9 @@ export function ProductList({
           aria-busy={isFetchingNextPage}
         >
           {isFetchingNextPage && (
-            <p className='text-gray-500'>Loading more products...</p>
+            <div className='w-full'>
+              <TableSkeleton rows={3} columns={6} />
+            </div>
           )}
           
           {!isFetchingNextPage && !hasNextPage && products.length > 0 && (

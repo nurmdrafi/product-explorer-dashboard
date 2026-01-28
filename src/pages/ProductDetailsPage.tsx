@@ -1,3 +1,4 @@
+import { ProductDetailSkeleton } from '@components/common/skeleton'
 import { useParams } from 'react-router-dom'
 import { useProductDetails } from '@features/product-details'
 import { ProductDetails } from '@features/product-details'
@@ -8,11 +9,7 @@ export function ProductDetailsPage() {
   const { product, isLoading, error } = useProductDetails(productId)
 
   if (isLoading) {
-    return (
-      <div className='container'>
-        <p className='text-gray-600'>Loading product details...</p>
-      </div>
-    )
+    return <ProductDetailSkeleton />
   }
 
   if (error) {

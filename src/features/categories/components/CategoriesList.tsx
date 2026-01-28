@@ -1,3 +1,4 @@
+import { CategoryGroupSkeleton } from '@components/common/skeleton'
 import { useCategories, groupCategoriesByLetter } from '@features/categories'
 import type { Category, CategoryGroup } from '@typings/categories.types'
 
@@ -9,12 +10,7 @@ export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
   const { categories, isLoading, error } = useCategories()
 
   if (isLoading) {
-    return (
-      <div className='flex justify-center p-8'>
-        <div className='h-8 w-8 animate-spin rounded-full border-4
-         border-gray-300 border-t-blue-600' />
-      </div>
-    )
+    return <CategoryGroupSkeleton groups={6} cardsPerGroup={4} />
   }
 
   if (error) {
