@@ -28,11 +28,11 @@ export async function getProducts(
     if (params.sortBy) {
       searchParams.append('sortBy', params.sortBy)
     }
-    
+
     if (params.order) {
       searchParams.append('order', params.order)
     }
-    
+
     if (params.q) {
       searchParams.append('q', params.q)
       // Use search endpoint: /products/search?q={query}
@@ -41,28 +41,49 @@ export async function getProducts(
       // Use general products endpoint: /products
       url = `${API.BASE_URL}${API.ENDPOINTS.PRODUCTS}?${searchParams}`
     }
-    
-    
-    
-    
   }
 
-  const response = await fetch(url)
+  try {
+    const response = await fetch(url)
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch products: ${response.statusText}`)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch products: ${response.statusText}`)
+    }
+
+    return response.json()
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+      throw new Error('Network error: Unable to connect to the server. Please check your internet connection and try again.')
+    }
+
+    if (error instanceof Error) {
+      throw error
+    }
+
+    throw new Error('An unexpected error occurred. Please try again.')
   }
-
-  return response.json()
 }
 
 export async function getProductsCategoryList(): Promise<CategoryListResponse> {
   const url = `${API.BASE_URL}${API.ENDPOINTS.CATEGORY_LIST}`
-  const response = await fetch(url)
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch category list: ${response.statusText}`)
+  try {
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch category list: ${response.statusText}`)
+    }
+
+    return response.json()
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+      throw new Error('Network error: Unable to connect to the server. Please check your internet connection and try again.')
+    }
+
+    if (error instanceof Error) {
+      throw error
+    }
+
+    throw new Error('An unexpected error occurred. Please try again.')
   }
-
-  return response.json()
 }

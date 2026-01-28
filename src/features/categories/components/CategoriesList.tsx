@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { CategoryGroupSkeleton } from '@components/common/skeleton'
 import { useCategories, groupCategoriesByLetter } from '@features/categories'
 import type { Category, CategoryGroup } from '@typings/categories.types'
+import { getErrorMessage } from '@utils/error'
 
 const ErrorState = lazy(() =>
   import('@components/common/errors').then(m => ({ default: m.ErrorState }))
@@ -25,7 +26,7 @@ export function CategoriesList({ onCategoryClick }: CategoriesListProps) {
       </div>}>
         <ErrorState
           title='Error Loading Categories'
-          message={(error as Error)?.message || 'Unable to load categories. Please try again later.'}
+          message={getErrorMessage(error) || 'Unable to load categories. Please try again later.'}
           onRetry={() => window.location.reload()}
         />
       </Suspense>

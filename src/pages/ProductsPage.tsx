@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { useInfiniteProducts } from '@features/products'
 import { ProductList } from '@features/products/components/ProductList'
+import { getErrorMessage } from '@utils/error'
 
 const ErrorState = lazy(() =>
   import('@components/common/errors').then(m => ({ default: m.ErrorState }))
@@ -24,7 +25,7 @@ export function ProductsPage() {
       </div>}>
         <ErrorState
           title='Error Loading Products'
-          message={(error as Error)?.message || 'Unable to load products. Please try again later.'}
+          message={getErrorMessage(error) || 'Unable to load products. Please try again later.'}
           onRetry={() => window.location.reload()}
         />
       </Suspense>

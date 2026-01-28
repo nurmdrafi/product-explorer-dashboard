@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Table } from '@components/common/table/Table'
 import { Columns } from '@components/common/table/Columns'
 import { useProductFilters } from '@store/features/products'
+import { getErrorMessage } from '@utils/error'
 
 import { useGetProductsCategoryListData } from '@features/products/hooks/useGetProductsCategoryListData'
 import { useSearchParams } from 'react-router-dom'
@@ -144,7 +145,7 @@ export function ProductList({
       </div>}>
         <ErrorState
           title='Error Loading Products'
-          message={(error as Error)?.message || 'Unable to load products. Please try again later.'}
+          message={getErrorMessage(error) || 'Unable to load products. Please try again later.'}
           onRetry={() => window.location.reload()}
         />
       </Suspense>
@@ -227,7 +228,7 @@ export function ProductList({
           {(currentSortBy || currentOrder || currentCategory) && (
             <button
               onClick={clearFilters}
-              className='w-full sm:w-auto px-4 py-2 text-sm font-medium
+              className='w-full sm:w-auto px-2 py-0 text-sm font-medium
                 text-white bg-red-600 rounded-md hover:bg-red-700 min-h-11'
             >
               Clear Filters

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useProductDetails } from '@features/product-details'
 import { ProductDetails } from '@features/product-details'
 import { EmptyState } from '@components/common/EmptyState'
+import { getErrorMessage } from '@utils/error'
 
 const ErrorState = lazy(() =>
   import('@components/common/errors').then(m => ({ default: m.ErrorState }))
@@ -25,7 +26,7 @@ export function ProductDetailsPage() {
       </div>}>
         <ErrorState
           title='Error Loading Product'
-          message={(error as Error)?.message || 'Unable to load product details. Please try again later.'}
+          message={getErrorMessage(error) || 'Unable to load product details. Please try again later.'}
           onRetry={() => window.location.reload()}
         />
       </Suspense>

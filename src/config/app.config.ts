@@ -28,7 +28,7 @@ export const CURRENCY = {
 export const QUERY = {
   STALE_TIME: 5 * 60 * 1000,
   GC_TIME: 10 * 60 * 1000,
-  RETRY: 3,
+  RETRY: 2,
 }
 
 export const INTERSECTION = {

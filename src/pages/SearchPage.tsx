@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useSearch } from '@features/search'
 import { useProductFilters } from '@store/features/products'
 import { TableSkeleton } from '@components/common/skeleton'
+import { getErrorMessage } from '@utils/error'
 
 import { ProductList } from '@features/products/components/ProductList'
 
@@ -89,7 +90,7 @@ export function SearchPage() {
         </div>}>
           <ErrorState
             title='Error Loading Search Results'
-            message={(error as Error)?.message || 'Unable to load search results. Please try again later.'}
+            message={getErrorMessage(error) || 'Unable to load search results. Please try again later.'}
             showBackButton={false}
             onRetry={() => window.location.reload()}
           />
