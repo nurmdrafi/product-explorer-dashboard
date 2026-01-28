@@ -8,4 +8,5 @@ export type TableProps<T> = {
   columns: Column<T>[]
   data: T[]
   keyExtractor: (row: T) => string | number
+  responsive?: boolean
 }

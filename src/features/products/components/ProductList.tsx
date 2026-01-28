@@ -1,6 +1,7 @@
 import { Table } from '@components/common/table/Table'
 import { Columns } from '@components/common/table/Columns'
 import { TableSkeleton } from '@components/common/skeleton'
+import { ErrorState } from '@components/common/errors'
 import { useProductFilters } from '@store/features/products'
 
 import { useGetProductsCategoryListData } from '@features/products/hooks/useGetProductsCategoryListData'
@@ -118,7 +119,7 @@ export function ProductList({
               <div className='h-4 bg-gray-200 rounded animate-pulse w-24' />
             </div>
             {showCategoryFilter && (
-              <div className='h-10 bg-gray-200 rounded animate-pulse w-64' />
+              <div className='h-11 bg-gray-200 rounded animate-pulse w-full sm:w-64' />
             )}
           </div>
         )}
@@ -130,9 +131,11 @@ export function ProductList({
   // Show error state
   if (error) {
     return (
-      <div className='text-center py-12'>
-        <p className='text-red-500 text-lg'>Error loading products</p>
-      </div>
+      <ErrorState
+        title='Error Loading Products'
+        message={(error as Error).message || 'Unable to load products. Please try again later.'}
+        onRetry={() => window.location.reload()}
+      />
     )
   }
 
@@ -154,16 +157,17 @@ export function ProductList({
             <p className='text-sm text-gray-500'>{total} items</p>
           </div>
 
-          <div className='flex justify-start items-center flex-wrap gap-4'>
+          <div className='flex justify-start items-center flex-wrap gap-3 w-full sm:w-auto'>
             {/* Category Filter */}
             {showCategoryFilter && (
-              <div>
+              <div className='w-full sm:w-auto'>
                 <select
                   id='category-filter'
                   value={currentCategory ?? 'all'}
                   onChange={handleCategoryChange}
-                  className='w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm
-                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                  className='w-full sm:w-64 px-3 py-2 border border-gray-300
+                   rounded-md shadow-sm focus:outline-none focus:ring-2
+                   focus:ring-blue-500 focus:border-blue-500 min-h-11'
                 >
                   <option value='all'>All Categories</option>
                   {categories?.map(category => (
@@ -174,13 +178,14 @@ export function ProductList({
                 </select>
               </div>
             )}
-            
+
             {/* Sort Buttons */}
-            <div className='flex gap-2'>
+            <div className='flex gap-2 w-full sm:w-auto'>
               <button
                 onClick={() => handleSortChange('price', 'asc')}
                 disabled={isSortDisabled}
-                className={`px-3 py-2 text-sm font-medium rounded-md border ${
+                className={`flex-1 sm:flex-none px-3 py-2 text-sm font-medium
+                  rounded-md border min-h-11 ${
                   currentSortBy === 'price' && currentOrder === 'asc'
                     ? 'bg-blue-100 text-blue-700 border-blue-300'
                     : isSortDisabled
@@ -193,7 +198,8 @@ export function ProductList({
               <button
                 onClick={() => handleSortChange('price', 'desc')}
                 disabled={isSortDisabled}
-                className={`px-3 py-2 text-sm font-medium rounded-md border ${
+                className={`flex-1 sm:flex-none px-3 py-2 text-sm font-medium
+                  rounded-md border min-h-11 ${
                   currentSortBy === 'price' && currentOrder === 'desc'
                     ? 'bg-blue-100 text-blue-700 border-blue-300'
                     : isSortDisabled
@@ -209,7 +215,8 @@ export function ProductList({
           {(currentSortBy || currentOrder || currentCategory) && (
             <button
               onClick={clearFilters}
-              className='px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700'
+              className='w-full sm:w-auto px-4 py-2 text-sm font-medium
+                text-white bg-red-600 rounded-md hover:bg-red-700 min-h-11'
             >
               Clear Filters
             </button>

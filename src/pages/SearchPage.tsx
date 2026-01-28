@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSearch } from '@features/search'
 import { useProductFilters } from '@store/features/products'
+import { ErrorState } from '@components/common/errors'
+import { TableSkeleton } from '@components/common/skeleton'
 
 import { ProductList } from '@features/products/components/ProductList'
 
@@ -62,7 +64,7 @@ export function SearchPage() {
             </p>
           )}
         </div>
-        <div className='text-center py-12'>Loading...</div>
+        <TableSkeleton rows={10} columns={6} />
       </div>
     )
   }
@@ -79,9 +81,12 @@ export function SearchPage() {
             </p>
           )}
         </div>
-        <div className='text-center py-12'>
-          <p className='text-red-500 text-lg'>Error loading search results</p>
-        </div>
+        <ErrorState
+          title='Error Loading Search Results'
+          message={(error as Error).message || 'Unable to load search results. Please try again later.'}
+          showBackButton={false}
+          onRetry={() => window.location.reload()}
+        />
       </div>
     )
   }

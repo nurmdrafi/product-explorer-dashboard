@@ -1,7 +1,9 @@
 import { ProductDetailSkeleton } from '@components/common/skeleton'
+import { ErrorState } from '@components/common/errors'
 import { useParams } from 'react-router-dom'
 import { useProductDetails } from '@features/product-details'
 import { ProductDetails } from '@features/product-details'
+import { EmptyState } from '@components/common/EmptyState'
 
 export function ProductDetailsPage() {
   const { id } = useParams<{ id: string }>()
@@ -14,19 +16,20 @@ export function ProductDetailsPage() {
 
   if (error) {
     return (
-      <div className='container'>
-        <p className='text-red-500'>
-          Error loading product: {(error as Error).message}
-        </p>
-      </div>
+      <ErrorState
+        title='Error Loading Product'
+        message={(error as Error).message || 'Unable to load product details. Please try again later.'}
+        onRetry={() => window.location.reload()}
+      />
     )
   }
 
   if (!product) {
     return (
-      <div className='container'>
-        <p className='text-gray-500'>Product not found</p>
-      </div>
+      <EmptyState
+        title='Product Not Found'
+        message='The product you are looking for does not exist or has been removed.'
+      />
     )
   }
 

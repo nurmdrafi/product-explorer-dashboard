@@ -6,11 +6,17 @@ import { ProductDetailsPage } from '@pages/ProductDetailsPage'
 import { CategoriesPage } from '@pages/CategoriesPage'
 import { SearchPage } from '@pages/SearchPage'
 import { SettingsPage } from '@pages/SettingsPage'
+import { NotFoundPage } from '@pages/NotFoundPage'
+import { ErrorBoundary } from '@components/common/errors'
 
 export const router = createBrowserRouter([
   {
     path: ROUTE.HOME,
-    element: <App />,
+    element: (
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    ),
     children: [
       {
         path: ROUTE.HOME,
@@ -35,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTE.SETTINGS,
         element: <SettingsPage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },
